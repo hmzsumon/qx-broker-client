@@ -1,8 +1,14 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "com.qxprofit.app",
-        "sha256_cert_fingerprints": ["21:43:99:5F:23:64:99:EE:E8:01:60:E5:6A:18:E6:63:2D:2F:79:84:09:69:53:64:97:16:90:49:60:71:3B:4B"]
-      }
-    }]
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.qxbroker.app",
+      "sha256_cert_fingerprints": [
+        "40:35:E6:AA:90:50:F4:8E:88:F6:9E:08:1E:46:BF:54:DB:96:82:74:CB:7D:7C:31:4C:A7:50:8F:1C:2E:EB:5D"
+      ]
+    }
+  }
+]

@@ -57,7 +57,7 @@ export function middleware(request: NextRequest) {
      root, skip the marketing home: logged in -> dashboard, otherwise -> sign in.
      Regular web browsers keep landing on "/". */
   const requestedWith = request.headers.get("x-requested-with") || "";
-  const isAndroidApp = requestedWith.startsWith("com.qxprofit");
+  const isAndroidApp = requestedWith.startsWith("com.qxbroker");
   if (isAndroidApp && pathname === "/") {
     const url = request.nextUrl.clone();
     url.search = "";

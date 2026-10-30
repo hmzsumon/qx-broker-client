@@ -14,8 +14,8 @@ export default function SidebarInviteCard() {
   const handleDownload = () => {
     // Trigger download action
     const link = document.createElement("a");
-    link.href = "/apk/qx-profit.apk";
-    link.download = "qx-profit.apk";
+    link.href = "/apk/qx-broker.apk";
+    link.download = "qx-broker.apk";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

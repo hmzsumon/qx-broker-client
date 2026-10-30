@@ -2,7 +2,7 @@
 
 import { Download, Smartphone } from "lucide-react";
 
-const APK = "/apk/qx-profit.apk";
+const APK = "/apk/qx-broker.apk";
 
 const STEPS = [
   "Tap “Download APK” below.",
@@ -26,13 +26,13 @@ export default function DownloadAppPage() {
             </span>
             <div className="min-w-0">
               <p className="font-semibold">Qx Broker for Android</p>
-              <p className="text-xs text-neutral-400">APK • ~1.5 MB</p>
+              <p className="text-xs text-neutral-400">APK • 1.5 MB</p>
             </div>
           </div>
 
           <a
             href={APK}
-            download="qx-profit.apk"
+            download="qx-broker.apk"
             className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-500 px-4 py-3 text-sm font-semibold text-neutral-950"
           >
             <Download size={16} /> Download APK
