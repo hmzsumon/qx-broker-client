@@ -1,10 +1,4 @@
-// config/socketUrl.ts
-let socketUrl = "";
+import { apiOrigin } from "./baseUrl";
 
-if (process.env.NODE_ENV === "development") {
-  socketUrl = "http://localhost:8000"; // local socket server
-} else {
-  socketUrl = "https://qx-profit-api-bff66bb8112c.herokuapp.com"; // deployed socket server
-}
-
-export default socketUrl;
+// Socket.IO connects directly; REST uses the same-origin Next.js proxy.
+export default apiOrigin;

@@ -1,9 +1,10 @@
-let baseUrl = '';
+// Keep API cookies on the panel's own origin through the Next.js rewrite.
+// To use a local backend, set NEXT_PUBLIC_API_ORIGIN=http://localhost:8000.
+export const apiOrigin = (
+  process.env.NEXT_PUBLIC_API_ORIGIN ||
+  "https://qx-brokerapi-f1b79e3b8be0.herokuapp.com"
+).replace(/\/+$/, "");
 
-if (process.env.NODE_ENV === 'development') {
-	baseUrl = 'http://localhost:8000/api/v1';
-} else {
-	baseUrl = '/api/v1'; // ✅ Proxy through Next.js on production
-}
+const baseUrl = "/api/v1";
 
 export default baseUrl;

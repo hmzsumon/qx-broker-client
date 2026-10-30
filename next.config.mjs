@@ -1,5 +1,10 @@
 // next.config.mjs
 /** @type {import('next').NextConfig} */
+const apiOrigin = (
+  process.env.NEXT_PUBLIC_API_ORIGIN ||
+  "https://qx-brokerapi-f1b79e3b8be0.herokuapp.com"
+).replace(/\/+$/, "");
+
 const nextConfig = {
   reactStrictMode: false,
 
@@ -22,7 +27,7 @@ const nextConfig = {
       {
         source: "/api/v1/:path*",
         destination:
-          (process.env.NODE_ENV === "development" ? "http://localhost:8000/api/v1/:path*" : "https://qx-profit-api-bff66bb8112c.herokuapp.com/api/v1/:path*"),
+          `${apiOrigin}/api/v1/:path*`,
       },
     ];
   },
