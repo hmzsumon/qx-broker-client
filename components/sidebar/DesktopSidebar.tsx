@@ -23,7 +23,7 @@ export default function DesktopSidebar() {
   return (
     <nav
       className={[
-        "sticky top-16 h-[calc(100dvh-4rem)] border-r border-neutral-900",
+        "qx-dashboard-sidebar sticky top-16 h-[calc(100dvh-4rem)] border-r border-neutral-900",
         "bg-neutral-950/95 backdrop-blur",
         collapsed ? "w-[72px] px-1" : "w-[280px] px-2",
         "pb-3 pt-2 flex flex-col",

@@ -11,7 +11,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import QxRegisterForm from "@/components/register-login/QxRegisterForm";
 import QxSignInForm from "@/components/register-login/QxSignInForm";
-import { QxAuthTabs } from "@/components/register-login/QxUI";
+import QxAuthCard from "@/components/register-login/QxAuthCard";
 
 type Tab = "signin" | "create";
 
@@ -37,28 +37,12 @@ export default function AuthPage(): JSX.Element {
 
   /* ────────── Render ────────── */
   return (
-    <section className="mx-auto max-w-xl px-2 py-14 sm:px-4 sm:py-20">
-      {/* ── Heading ── */}
-      <h1 className="mb-8 text-center text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-        {tab === "signin" ? "Sign In To Your Account" : "Sign Up"}
-      </h1>
-
-      {/* ── Card ── */}
-      <div className="rounded-2xl bg-[#252c3d] shadow-2xl shadow-black/30">
-        {/* Tabs */}
-        <div className="flex justify-center border-b border-white/[0.06] px-6 py-6">
-          <QxAuthTabs value={tab} onChange={setTabAndUrl} />
-        </div>
-
-        {/* Form */}
-        <div className="px-4 py-8 sm:px-10">
-          {tab === "signin" ? (
-            <QxSignInForm />
-          ) : (
-            <QxRegisterForm onSuccess={() => setTabAndUrl("signin")} />
-          )}
-        </div>
-      </div>
-    </section>
+    <QxAuthCard tab={tab} onTabChange={setTabAndUrl}>
+      {tab === "signin" ? (
+        <QxSignInForm />
+      ) : (
+        <QxRegisterForm onSuccess={() => setTabAndUrl("signin")} />
+      )}
+    </QxAuthCard>
   );
 }

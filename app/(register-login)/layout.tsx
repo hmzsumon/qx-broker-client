@@ -13,7 +13,7 @@ const RegisterLoginLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div className="min-h-screen bg-[#0B1220] text-white">
+    <div className="qx-auth-layout min-h-screen text-white">
       {/* ── Navbar (fixed, h-16) ── */}
       <QxNavbar />
 

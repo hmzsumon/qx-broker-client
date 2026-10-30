@@ -33,7 +33,7 @@ export default function KycStatusBanner() {
   const rejected = status === "rejected";
 
   return (
-    <div className="mt-3 flex items-center gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm">
+    <div className="qx-dashboard-kyc mt-3 flex items-center gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm">
       <ShieldCheck size={18} className="shrink-0 text-emerald-400" />
       <div className="min-w-0 flex-1 text-emerald-100">
         {rejected

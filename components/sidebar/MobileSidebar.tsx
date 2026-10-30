@@ -29,7 +29,7 @@ export default function MobileSidebar({ open, onClose }: Props) {
 
       {/* drawer panel */}
       <aside
-        className={`fixed left-0 top-16 bottom-0 z-50 w-[86%] max-w-[320px] border-r border-neutral-900 bg-neutral-950 transition-transform md:hidden ${
+        className={`qx-dashboard-sidebar fixed left-0 top-16 bottom-0 z-50 w-[86%] max-w-[320px] border-r border-neutral-900 bg-neutral-950 transition-transform md:hidden ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
         aria-hidden={!open}

@@ -11,28 +11,30 @@
 "use client";
 
 import React from "react";
-import { ArrowRight, Eye, EyeOff } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, Mail, LockKeyhole, Globe, Coins, Ticket } from "lucide-react";
 
 /* ────────── Field: outlined wrapper with floating label ────────── */
 export const QxField: React.FC<{
   label: string;
   error?: string;
   children: React.ReactNode;
-}> = ({ label, error, children }) => (
-  <div>
-    <div
-      className={`relative rounded-[4px] border bg-transparent transition-colors ${
-        error ? "border-red-500" : "border-white/20 focus-within:border-[#2E7DF6]"
-      }`}
-    >
-      <label className="pointer-events-none absolute -top-2 left-2.5 bg-[#252c3d] px-1.5 text-[11px] text-gray-400">
-        {label}
-      </label>
-      {children}
+}> = ({ label, error, children }) => {
+  const id = React.useId();
+  const Icon = /password/i.test(label) ? LockKeyhole : /email/i.test(label) ? Mail : /country/i.test(label) ? Globe : /currency/i.test(label) ? Coins : Ticket;
+  return (
+    <div className="qx-field-group">
+      <div className={`qx-auth-field ${error ? "qx-auth-field-error" : ""}`} role="group" aria-labelledby={id}>
+        {/* ────────── Silver icon tile ────────── */}
+        <span className="qx-field-icon" aria-hidden="true"><Icon size={21} strokeWidth={2} /></span>
+        <div className="qx-field-content">
+          <label id={id} className="qx-field-label">{label}</label>
+          {children}
+        </div>
+      </div>
+      {error ? <p className="mt-2 text-xs text-red-200">{error}</p> : null}
     </div>
-    {error ? <p className="mt-1 text-xs text-red-400">{error}</p> : null}
-  </div>
-);
+  );
+};
 
 /* ────────── Input: bare text input (forwardRef for RHF) ────────── */
 export const QxInput = React.forwardRef<
@@ -81,7 +83,7 @@ export const QxSubmit: React.FC<
   <button
     {...props}
     disabled={disabled}
-    className={`flex w-full items-center justify-center gap-2 rounded-md bg-[#2E7DF6] py-3.5 text-sm font-bold text-white transition-colors hover:bg-[#1E6FE0] disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
+    className={`qx-auth-submit flex w-full items-center justify-center gap-2 rounded-md bg-[#2E7DF6] py-3.5 text-sm font-bold text-white transition-colors hover:bg-[#1E6FE0] disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
   >
     {label}
     <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/25">
@@ -102,7 +104,8 @@ export const QxAuthTabs: React.FC<{
     <button
       type="button"
       onClick={() => onChange(id)}
-      className={`h-9 rounded-md px-6 text-sm font-bold transition-colors ${
+      aria-pressed={value === id}
+      className={`qx-auth-tab h-9 rounded-md px-6 text-sm font-bold transition-colors ${
         value === id
           ? "bg-[#39435a] text-white"
           : "text-gray-400 hover:text-gray-200"
@@ -113,7 +116,7 @@ export const QxAuthTabs: React.FC<{
   );
 
   return (
-    <div className="inline-flex items-center gap-1 rounded-lg bg-[#1c2230] p-1">
+    <div className="qx-auth-tabs inline-flex items-center gap-1 rounded-lg bg-[#1c2230] p-1">
       <Item id="signin">Login</Item>
       <Item id="create">Registration</Item>
     </div>

@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 import "flag-icons/css/flag-icons.min.css";
 import "./globals.css";
+import "./qx-theme.css";
 
 import StoreProvider from "./StoreProvider";
 import Providers from "./providers";
@@ -48,7 +49,7 @@ export default function RootLayout({
   return (
     <html className="light">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased qx-client-theme`}
         style={{ background: "#0B1220" }}
         suppressHydrationWarning={true}
       >

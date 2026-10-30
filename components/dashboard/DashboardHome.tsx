@@ -8,40 +8,25 @@
 import AnnouncementBanner from "@/components/announcements/AnnouncementBanner";
 import dynamic from "next/dynamic";
 import DailyVideoSection from "@/components/dashboard/DailyVideoSection";
-import KycStatusChip from "@/components/kyc/KycStatusChip";
-import Avatar from "@/components/ui/avatar";
-import { formatBalance } from "@/lib/functions";
 import { useGetProfitLeaderboardQuery } from "@/redux/features/leaderboard/leaderboardApi";
 import { useGetMyRankSummaryQuery } from "@/redux/features/rank/rankApi";
-import {
-  ArrowDownToLine,
-  ArrowUpFromLine,
-  Check,
-  Copy,
-  Eye,
-  EyeOff,
-  TrendingUp,
-  Trophy,
-} from "lucide-react";
-import Link from "next/link";
+import DashboardGreeting from "./DashboardGreeting";
+import DashboardBalanceCard from "./DashboardBalanceCard";
+import DashboardQuickActions from "./DashboardQuickActions";
+import DashboardStats from "./DashboardStats";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 const LiveCandlestickChart = dynamic(
   () => import("@/components/dashboard/LiveCandlestickChart"),
-  { ssr: false, loading: () => <div className="h-[420px] animate-pulse rounded-2xl bg-white/5" /> },
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[420px] animate-pulse rounded-2xl bg-white/5" />
+    ),
+  },
 );
-
-const usd = (v: number) =>
-  `$${Number(v || 0).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
-
-const QUICK_ACTIONS = [
-  { label: "Deposit", href: "/deposit", icon: ArrowDownToLine },
-  { label: "Withdraw", href: "/withdraw", icon: ArrowUpFromLine },
-  { label: "QX Investment", href: "/trade-investment", icon: TrendingUp },
-  { label: "Top Investment", href: "/profit-ranking", icon: Trophy },
-];
 
 export default function DashboardHome() {
   const { user } = useSelector((s: any) => s.auth);
@@ -72,113 +57,24 @@ export default function DashboardHome() {
   };
 
   return (
-    <main className="min-h-screen w-full bg-[#0b0e11] pb-24 pt-5 text-white">
+    <main className="qx-dashboard-home min-h-screen w-full bg-[#0b0e11] pb-24 pt-5 text-white">
       <div className="mx-auto w-full max-w-3xl space-y-5 px-1 sm:px-3">
-        {/* greeting */}
-        <div className="flex items-center gap-3">
-          <Avatar src={user?.avatar} name={user?.name} size={44} />
-          <div className="min-w-0">
-            <p className="text-xs text-white/50">Welcome back</p>
-            <p className="truncate text-sm font-semibold">
-              {user?.name || "Trader"}
-            </p>
-            <div className="mt-1">
-              <KycStatusChip />
-            </div>
-          </div>
-        </div>
+        {/* ────────── Greeting ────────── */}
+        <DashboardGreeting user={user} />
 
         <AnnouncementBanner />
 
-        {/* balance card */}
-        <section className="rounded-2xl border border-white/10 bg-gradient-to-br from-[#12203a] to-[#0e1626] p-5">
-          <div className="flex items-center justify-between">
-            <p className="text-sm text-white/60">Main balance</p>
-            <button
-              onClick={() => setHidden((v) => !v)}
-              className="rounded-lg p-1.5 text-white/60 hover:bg-white/10 hover:text-white"
-              aria-label={hidden ? "Show balance" : "Hide balance"}
-            >
-              {hidden ? <EyeOff size={16} /> : <Eye size={16} />}
-            </button>
-          </div>
+        {/* ────────── Main balance ────────── */}
+        <DashboardBalanceCard balance={balance} customerId={customerId} hidden={hidden} copied={copied} onToggleHidden={() => setHidden((v) => !v)} onCopyId={copyId} />
 
-          <div className="mt-1 text-3xl font-bold tracking-tight">
-            {hidden ? "••••••" : formatBalance(balance)}
-            <span className="ml-1.5 text-sm font-medium text-white/50">USDT</span>
-          </div>
+        {/* ────────── Quick actions ────────── */}
+        <DashboardQuickActions />
 
-          {customerId ? (
-            <button
-              onClick={copyId}
-              className="mt-3 inline-flex items-center gap-2 rounded-lg bg-white/5 px-3 py-1.5 text-xs text-white/70 hover:bg-white/10"
-            >
-              ID: <span className="font-semibold text-white">{customerId}</span>
-              {copied ? (
-                <Check size={13} className="text-[#12b76a]" />
-              ) : (
-                <Copy size={13} />
-              )}
-            </button>
-          ) : null}
-
-          <div className="mt-4 flex gap-2">
-            <Link
-              href="/deposit"
-              className="flex-1 rounded-lg bg-[#2E7DF6] py-2.5 text-center text-sm font-semibold text-white hover:bg-[#1E6FE0]"
-            >
-              Deposit
-            </Link>
-            <Link
-              href="/withdraw"
-              className="flex-1 rounded-lg border border-white/15 py-2.5 text-center text-sm font-semibold text-white hover:bg-white/5"
-            >
-              Withdraw
-            </Link>
-          </div>
-        </section>
-
-        {/* quick actions */}
-        <section className="grid grid-cols-4 gap-2">
-          {QUICK_ACTIONS.map((a) => (
-            <Link
-              key={a.label}
-              href={a.href}
-              className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-2 py-3 text-center hover:bg-white/[0.07]"
-            >
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#2E7DF6]/15 text-[#5AA2FF]">
-                <a.icon size={18} />
-              </span>
-              <span className="text-[11px] font-medium text-white/80">
-                {a.label}
-              </span>
-            </Link>
-          ))}
-        </section>
-
-        {/* stat chips */}
-        <section className="grid grid-cols-3 gap-2">
-          <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
-            <p className="text-[11px] text-white/50">My QX Investment</p>
-            <p className="mt-1 text-sm font-bold text-[#12b76a]">
-              {usd(myInvestment)}
-            </p>
-            {myInvestmentRank && (
-              <p className="text-[10px] text-white/40">Rank #{myInvestmentRank}</p>
-            )}
-          </div>
-          <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
-            <p className="text-[11px] text-white/50">Team volume</p>
-            <p className="mt-1 text-sm font-bold text-white">{usd(teamVolume)}</p>
-          </div>
-          <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
-            <p className="text-[11px] text-white/50">Current rank</p>
-            <p className="mt-1 text-sm font-bold text-white">{currentRank}</p>
-          </div>
-        </section>
+        {/* ────────── Investment and team stats ────────── */}
+        <DashboardStats myInvestment={myInvestment} myInvestmentRank={myInvestmentRank} teamVolume={teamVolume} currentRank={currentRank} />
 
         <DailyVideoSection />
-        <LiveCandlestickChart />
+        {/* <LiveCandlestickChart /> */}
       </div>
     </main>
   );

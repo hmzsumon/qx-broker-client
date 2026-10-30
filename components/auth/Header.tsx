@@ -83,7 +83,7 @@ export default function Header({ open, onToggle }: Props) {
 
   return (
     /* ────────── Top fixed header: border + blurred backdrop ────────── */
-    <header className="fixed inset-x-0 top-0 z-50 h-16 border-b border-neutral-900/60 bg-neutral-950/80 backdrop-blur supports-[backdrop-filter]:bg-neutral-950/60">
+    <header className="qx-dashboard-header fixed inset-x-0 top-0 z-50 h-16 border-b border-neutral-900/60 bg-neutral-950/80 backdrop-blur supports-[backdrop-filter]:bg-neutral-950/60">
       {/* ────────── Content container: left brand/menu, right actions ────────── */}
       <div className="mx-auto flex h-full w-full items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* ────────── Left: mobile menu button + brand ────────── */}

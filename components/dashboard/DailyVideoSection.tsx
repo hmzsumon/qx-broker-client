@@ -17,7 +17,7 @@ export default function DailyVideoSection() {
   const active = videos.find((video) => video._id === selectedId) ?? videos[0];
 
   return (
-    <section aria-label="Daily videos" className="space-y-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+    <section aria-label="Daily videos" className="qx-dashboard-videos space-y-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
       <h2 className="text-sm font-semibold text-white">Daily videos</h2>
       {isLoading ? <p role="status" className="text-sm text-white/60">Loading videos...</p> :
         isError ? <div role="alert" className="text-sm text-white/60">Could not load videos. <button onClick={() => refetch()} className="text-teal-300 underline">Try again</button></div> :

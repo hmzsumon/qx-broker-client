@@ -31,7 +31,7 @@ export default function SidebarInviteCard() {
     document.body.removeChild(link);
   };
   return (
-    <div className="mt-3 rounded-xl border border-neutral-800 bg-neutral-900/60 p-3">
+    <div className="qx-sidebar-invite mt-3 rounded-xl border border-neutral-800 bg-neutral-900/60 p-3">
       <div className="text-sm font-medium">{INVITE_CARD.title}</div>
       <div className="grid grid-cols-3 gap-2 mt-2">
         <Link href={INVITE_CARD.href} className={`${btnPrimary} w-full`}>
