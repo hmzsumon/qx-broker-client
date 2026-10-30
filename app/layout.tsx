@@ -1,0 +1,65 @@
+import SocketProvider from "@/providers/SocketProvider";
+import type { Metadata } from "next";
+import localFont from "next/font/local";
+import { Toaster } from "react-hot-toast";
+import "flag-icons/css/flag-icons.min.css";
+import "./globals.css";
+
+import StoreProvider from "./StoreProvider";
+import Providers from "./providers";
+
+const geistSans = localFont({
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+  weight: "100 900",
+});
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900",
+});
+
+export const metadata: Metadata = {
+  title: "Qx Broker",
+  description: "Trade on your favorite trading platforms with Qx Broker",
+  openGraph: {
+    title: "Qx Broker",
+    description: "Trade on your favorite trading platforms with Qx Broker",
+    url: "https://www.qxprofit.com/",
+    siteName: "Qx Broker",
+    images: [
+      {
+        url: "https://www.qxprofit.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Qx Broker",
+      },
+    ],
+    type: "website",
+    locale: "en_US",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html className="light">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{ background: "#0B1220" }}
+        suppressHydrationWarning={true}
+      >
+        <StoreProvider>
+          <SocketProvider>
+            <Providers>{children}</Providers>
+          </SocketProvider>
+        </StoreProvider>
+
+        <Toaster />
+      </body>
+    </html>
+  );
+}
