@@ -140,7 +140,7 @@ export default function TradeInvestmentScreen() {
       <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
         <StatCard label="Main Balance" value={fmt(user?.m_balance || 0)} tone="blue" />
         <StatCard label="Investment Balance" value={fmt(account?.balance || 0)} tone="green" />
-        <StatCard label="Selected Daily Rate" value={config ? `${config.dailyProfitPercent > 0 ? Math.min(4, Math.max(1, config.dailyProfitPercent)) : 0}%` : "—"} tone="amber" />
+        <StatCard label="Selected Daily Rate" value={config ? `${config.dailyProfitPercent > 0 ? Math.min(4, Math.max(0.01, config.dailyProfitPercent)) : 0}%` : "—"} tone="amber" />
         <StatCard label="Total Profit" value={fmt(account?.totalUserProfit || 0)} />
       </div>
 

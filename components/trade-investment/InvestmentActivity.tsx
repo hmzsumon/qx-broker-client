@@ -16,7 +16,7 @@ export default function InvestmentActivity({ account, config, now, loading, stal
 }) {
   const { nextRun, dayProgress } = investmentProgress(now, config?.excludedWeekDays);
   const validRate = Number.isFinite(config?.dailyProfitPercent) && Number(config?.dailyProfitPercent) > 0;
-  const rate = validRate ? Math.min(4, Math.max(1, Number(config?.dailyProfitPercent))) : 0;
+  const rate = validRate ? Math.min(4, Math.max(0.01, Number(config?.dailyProfitPercent))) : 0;
   const active = !!config?.isActive && account?.status === "active" && account.balance >= config.minAmount;
   const estimate = active && validRate && nextRun ? account.balance * rate / 100 : 0;
   const lockRemaining = Math.max(0, new Date(account?.lockUntil ?? 0).getTime() - now);
