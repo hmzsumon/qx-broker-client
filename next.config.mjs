@@ -2,7 +2,7 @@
 /** @type {import('next').NextConfig} */
 const apiOrigin = (
   process.env.NEXT_PUBLIC_API_ORIGIN ||
-  "https://qx-brokerapi-f1b79e3b8be0.herokuapp.com"
+  "https://qx-broker-879e8a725db9.herokuapp.com"
 ).replace(/\/+$/, "");
 
 const nextConfig = {
