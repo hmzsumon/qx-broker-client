@@ -43,7 +43,7 @@ export default function RankRewardPage() {
         <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:py-10">
           <EmptyState
             title="No ranks yet"
-            subtitle="Build your team volume to unlock your first rank."
+            subtitle="Build your direct sponsors and team to unlock your first rank."
             actionLabel="Go to Dashboard"
             onAction={() => (window.location.href = "/dashboard")}
           />
@@ -53,7 +53,7 @@ export default function RankRewardPage() {
   }
 
   const teamVolume = data.overall.teamVolume;
-  const nextTier = data.ranks.find((r) => !r.qualified);
+  const nextTier = data.ranks.find((r) => !r.qualified && !r.claimed);
 
   return (
     <main className="min-h-screen bg-[#070A12] text-white">
@@ -62,25 +62,24 @@ export default function RankRewardPage() {
           <div>
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Rank &amp; Reward</h1>
             <p className="mt-1 text-sm text-white/60">
-              Rewards unlock as your total team investment volume grows.
+              QX1: 5 direct sponsors, $3,500 direct sales and $5,000 team sales. Higher ranks depend on members achieving the required ranks.
             </p>
           </div>
 
           <div className="w-full sm:w-96">
             <div className="mb-2 flex justify-between text-xs text-white/60">
-              <span>Total team volume</span>
+              <span>{nextTier ? `${nextTier.name} progress` : "All rank requirements met"}</span>
               <span>
-                {usd(teamVolume)}
-                {nextTier ? ` / ${usd(nextTier.targetVolume)}` : ""}
+                {nextTier ? nextTier.progress.overall : 100}%
               </span>
             </div>
             <ProgressBar
-              value={nextTier ? teamVolume : 1}
-              max={nextTier ? nextTier.targetVolume || 1 : 1}
+              value={nextTier ? nextTier.progress.overall : 100}
+              max={100}
             />
             {nextTier && (
               <p className="mt-1 text-[11px] text-white/50">
-                {usd(nextTier.progress.remaining)} left to reach {nextTier.name}
+                Complete the requirements shown on the {nextTier.name} card
               </p>
             )}
           </div>

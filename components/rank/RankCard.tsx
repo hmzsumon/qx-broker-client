@@ -1,7 +1,7 @@
 /* Rank tier card driven by live team-volume progress. */
 "use client";
 
-import { ProgressBar } from "@/components/ProgressBar";
+import { RankRequirements } from "@/components/rank/RankRequirements";
 import type { RankSummaryItem } from "@/types/rank";
 import { Trophy } from "lucide-react";
 import Link from "next/link";
@@ -50,22 +50,10 @@ export function RankCard({ item }: { item: RankSummaryItem }) {
             ? "Reward claimed."
             : item.qualified
               ? "Qualified — claim your reward."
-              : "Grow your team volume to unlock this tier."}
+              : "Complete the sponsor and rank requirements to unlock this tier."}
         </p>
 
-        <div className="mt-4 space-y-2">
-          <div className="mb-1 flex justify-between text-[11px] text-white/60">
-            <span>Team Volume</span>
-            <span>
-              {usd(teamVolume)} / {usd(target)}
-            </span>
-          </div>
-          <ProgressBar value={teamVolume} max={target || 1} />
-          <div className="flex justify-between text-[11px] text-white/65">
-            <span>Overall {overall}%</span>
-            <span>{remaining > 0 ? `${usd(remaining)} left` : "Target met"}</span>
-          </div>
-        </div>
+        <RankRequirements item={item}/>
 
         <Link
           href={`/rank-reward/${item.key}`}

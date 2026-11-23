@@ -1,6 +1,6 @@
 "use client";
 
-import { ProgressBar } from "@/components/ProgressBar";
+import { RankRequirements } from "@/components/rank/RankRequirements";
 import { EmptyState, ErrorState, InlineLoader } from "@/components/ui/States";
 import {
   useClaimRankMutation,
@@ -73,21 +73,10 @@ export default function RankDetails({ params }: { params: { rank: string } }) {
               ? item.claimed
                 ? "Already claimed."
                 : "You are qualified — claim your reward."
-              : "Keep growing your team volume to qualify."}
+              : "Complete the sponsor and rank requirements to qualify."}
           </p>
 
-          <div className="mt-6">
-            <div className="mb-2 flex justify-between text-xs text-white/60">
-              <span>Total Team Volume</span>
-              <span>
-                {usd(teamVolume)} / {usd(target)}
-              </span>
-            </div>
-            <ProgressBar value={teamVolume} max={target || 1} />
-            <p className="mt-2 text-xs text-white/60">
-              {remaining <= 0 ? "Target met" : `${usd(remaining)} more team volume needed`} · Overall {overall}%
-            </p>
-          </div>
+          <RankRequirements item={item}/>
 
           {data.levels.length > 0 && (
             <div className="mt-6 overflow-x-auto">

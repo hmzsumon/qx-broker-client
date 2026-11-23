@@ -23,6 +23,7 @@ export interface RankSummaryItem {
   targetVolume: number;
   rewardUsd: number;
   sortOrder: number;
+  requirements?: {label:string;current:number;target:number;unit:"members"|"USD";met:boolean}[];
   progress: RankTierProgress;
   qualified: boolean;
   claimed: boolean;
